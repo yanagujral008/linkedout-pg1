@@ -20,7 +20,7 @@ function Community() {
         
         {/* --- LEFT COLUMN: Brand Collaborations--- */}
         <div className="w-full md:w-1/2">
-          <h2 className="text-4xl font-bold mb-2 text-yellow-400">Our Collaborations</h2>
+          <h2 className="text-4xl font-bold mb-2 text-yellow-400">Our Sponsors</h2>
           <p className="text-neutral-400 mb-6">Proud to collaborate with industry leaders.</p>
           
           <div className="relative w-full overflow-hidden h-20 mb-12">

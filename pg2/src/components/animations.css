@@ -8,11 +8,10 @@
 }
 
 .floating-octopus {
-  position: fixed;
-  width: 500px;
-  height: auto;
-  z-index: 1000;
+  position: absolute;
+  z-index: 1;
   will-change: transform;
   pointer-events: none;
   transform-origin: center;
+  max-height: 45vh;
 }

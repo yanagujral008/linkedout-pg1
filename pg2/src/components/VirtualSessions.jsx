@@ -10,25 +10,25 @@ function VirtualSessions() {
 
   return (
     <section className="bg-black text-white min-h-screen flex items-center relative">
-      <div className="container mx-auto px-4 flex items-center justify-center">
-        {/* Left Column: Content */}
-        <div className="w-full md:w-1/2">
-          <div className="flex flex-col items-center text-center">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center gap-16">
+          <div className="w-1/2">
             <h2 className="text-5xl font-bold mb-8">
               <span className="text-yellow-400">Virtual</span> Speaker Sessions
             </h2>
-
-            <div className="w-full max-w-xl aspect-video mb-12">
-              <ImageCarousel images={slides} />
-            </div>
-
+            <p className="text-2xl text-neutral-400 mb-10">
+              Join our online sessions and learn from the best in the industry.
+            </p>
             <button className="border-2 border-yellow-400 px-6 py-3 rounded-md text-yellow-400 hover:bg-yellow-400 hover:text-black text-xl transition-colors duration-300">
               Follow on LinkedIn
             </button>
-            
+          </div>
+          <div className="w-1/2">
+            <div className="w-full aspect-video max-w-2xl ml-auto">
+              <ImageCarousel images={slides} />
+            </div>
           </div>
         </div>
-        
       </div>
     </section>
   );
