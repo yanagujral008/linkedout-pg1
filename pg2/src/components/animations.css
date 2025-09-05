@@ -1,0 +1,18 @@
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.floating-octopus {
+  position: fixed;
+  width: 500px;
+  height: auto;
+  z-index: 1000;
+  will-change: transform;
+  pointer-events: none;
+  transform-origin: center;
+}
