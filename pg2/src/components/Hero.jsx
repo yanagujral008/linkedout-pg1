@@ -1,22 +1,88 @@
 import { motion } from 'framer-motion';
 import octopusImage from '../assets/octopus.png';
+import { useNavigate } from 'react-router-dom';
 
 function Hero() {
+  const navigate = useNavigate();
   return (
-    <section className="text-white h-[calc(100vh-88px)] relative">
-      <div className="container mx-auto h-full">
-        <div className="flex h-full items-center">
-          <div className="w-1/2">
-            <h1 className="text-8xl font-bold mb-6">
-              <span className="text-yellow-400">Linked</span>Out
-            </h1>
-            <p className="text-xl max-w-lg mb-10 text-gray-300">
-              World's largest community for linkedin content creators
-            </p>
-            <button className="bg-white text-black font-bold py-4 px-10 rounded-lg text-lg hover:bg-yellow-400 transition-colors duration-300">
-              Luna Calendar
-            </button>
-          </div>
+    <section className="relative text-white min-h-screen overflow-hidden">
+      {/* Animated background gradients */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-neutral-900 to-black"></div>
+      <motion.div 
+        className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 via-transparent to-yellow-600/5"
+        animate={{ 
+          background: [
+            "radial-gradient(circle at 20% 50%, rgba(250,204,21,0.1) 0%, transparent 50%)",
+            "radial-gradient(circle at 80% 50%, rgba(250,204,21,0.1) 0%, transparent 50%)",
+            "radial-gradient(circle at 20% 50%, rgba(250,204,21,0.1) 0%, transparent 50%)"
+          ]
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      
+      <div className="container mx-auto h-full relative z-10">
+        <div className="flex h-screen items-center">
+          <motion.div 
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-1/2 flex flex-col items-start pl-8"
+          >
+            <motion.h1 
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-7xl lg:text-8xl font-bold mb-8 leading-tight"
+            >
+              <motion.span 
+                className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent"
+                animate={{ 
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                style={{ backgroundSize: "200% 200%" }}
+              >
+                Linked
+              </motion.span>
+              <span className="text-white">Out</span>
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-xl lg:text-2xl max-w-2xl mb-12 text-gray-300 leading-relaxed"
+            >
+              World's largest community for{' '}
+              <span className="text-yellow-400 font-semibold">LinkedIn content creators</span>
+            </motion.p>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex flex-col sm:flex-row gap-4 w-full max-w-md"
+            >
+              <motion.button 
+                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(250,204,21,0.3)" }}
+                whileTap={{ scale: 0.95 }}
+                className="relative overflow-hidden bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold py-4 px-8 rounded-2xl text-lg shadow-2xl group transition-all duration-300"
+              >
+                <span className="relative z-10 whitespace-nowrap">Join Community</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-yellow-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </motion.button>
+              
+              <motion.button
+                onClick={() => navigate('/past-events')}
+                whileHover={{ scale: 1.05, borderColor: "rgb(250 204 21)" }}
+                whileTap={{ scale: 0.95 }}
+                className="relative overflow-hidden bg-transparent text-yellow-400 font-bold py-4 px-8 rounded-2xl text-lg border-2 border-yellow-400/50 hover:bg-yellow-400/10 transition-all duration-300 group"
+              >
+                <span className="relative z-10 whitespace-nowrap">Explore Past Events</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </motion.button>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
 
@@ -24,17 +90,16 @@ function Hero() {
         src={octopusImage} 
         alt="Floating Octopus" 
         className="floating-octopus"
-        style={{
-          right: '14%',
-          top: '22%',
-          width: '420px',
-          height: 'auto'
-        }}
-        animate={{
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ 
+          opacity: 1, 
+          scale: 1,
           y: ["-15px", "15px"],
           rotate: [-2, 2]
         }}
         transition={{
+          opacity: { duration: 1, delay: 1 },
+          scale: { duration: 1, delay: 1 },
           y: {
             repeat: Infinity,
             duration: 2.5,
@@ -47,6 +112,13 @@ function Hero() {
             ease: "easeInOut",
             repeatType: "reverse"
           }
+        }}
+        style={{
+          right: '10%',
+          top: '20%',
+          width: '450px',
+          height: 'auto',
+          filter: 'drop-shadow(0 0 30px rgba(250,204,21,0.3))'
         }}
       />
     </section>
