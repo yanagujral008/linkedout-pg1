@@ -4,52 +4,92 @@ import { motion } from 'framer-motion';
 
 function Header() {
   return (
-    <motion.header 
+    <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10 text-white"
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className="fixed top-0 left-0 right-0 z-50 text-white"
     >
-      <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <motion.div 
+      <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Brand */}
+        <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="text-xl font-bold"
+          className="flex items-center gap-3"
         >
           <Link to="/">
-            <img src={logo} alt="Logo" className="h-12 cursor-pointer transition-all duration-300 hover:drop-shadow-[0_0_20px_rgba(250,204,21,0.5)]" />
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-12 cursor-pointer transition-all duration-300 hover:drop-shadow-[0_0_20px_rgba(250,204,21,0.5)]"
+            />
           </Link>
         </motion.div>
 
-        <div className="flex items-center space-x-8">
-          <motion.a 
-            href="#" 
-            whileHover={{ scale: 1.05, y: -2 }}
-            className="relative text-gray-300 hover:text-yellow-400 transition-all duration-300 font-medium tracking-wide group"
+        {/* Pill Navigation */}
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15, duration: 0.5 }}
+          className="hidden sm:flex items-center rounded-full border border-white/20 bg-white/10 backdrop-blur-xl px-3 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_8px_24px_rgba(0,0,0,0.35)]"
+          style={{ backgroundImage: 'linear-gradient(90deg, rgba(250,204,21,0.06), rgba(255,255,255,0.04))' }}
+        >
+          {/* Links */}
+          <ul className="flex items-center gap-8 px-4">
+            <li>
+              <a href="#pricing" className="text-gray-200/90 hover:text-white transition-colors font-medium">
+                Write a post
+              </a>
+            </li>
+            <li>
+              <a href="#help" className="text-gray-200/90 hover:text-white transition-colors font-medium">
+                Join Community
+              </a>
+            </li>
+          </ul>
+
+          {/* CTA cluster - arrow circle (left) + button (right) that swap on hover */}
+          <motion.div
+            layout
+            transition={{ duration: 1.4, ease: [0.25, 1, 0.5, 1] }}
+            className="group flex items-center gap-2"
           >
-            Post Generator
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600 group-hover:w-full transition-all duration-300"></span>
-          </motion.a>
-          
-          <motion.a 
-            href="#" 
-            whileHover={{ scale: 1.05, y: -2 }}
-            className="relative text-gray-300 hover:text-yellow-400 transition-all duration-300 font-medium tracking-wide group"
-          >
-            Join Community
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600 group-hover:w-full transition-all duration-300"></span>
-          </motion.a>
-          
-          <motion.a 
-            href="#" 
-            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(250,204,21,0.4)" }}
-            whileTap={{ scale: 0.95 }}
-            className="relative overflow-hidden bg-gradient-to-r from-yellow-400 to-yellow-500 text-black px-6 py-3 rounded-full font-semibold tracking-wide shadow-lg hover:shadow-yellow-400/25 transition-all duration-300 group"
-          >
-            <span className="relative z-10">Log In / Sign Up</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-yellow-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </motion.a>
-        </div>
+            <motion.button
+              layout
+              transition={{ duration: 1.4, ease: [0.25, 1, 0.5, 1] }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="order-1 group-hover:order-2 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] transition-colors relative grid place-items-center h-11 w-11 rounded-full bg-yellow-400 text-black border border-yellow-300 shadow-[0_8px_24px_rgba(0,0,0,0.45)] group-hover:bg-black group-hover:text-white group-hover:border-white/25 group-hover:-translate-x-1.5 will-change-transform"
+              aria-label="Go"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                className="h-5 w-5"
+              >
+                <path d="M5 12h14" />
+                <path d="M13 5l7 7-7 7" />
+              </svg>
+            </motion.button>
+
+            <motion.a
+              layout
+              transition={{ duration: 1.4, ease: [0.25, 1, 0.5, 1] }}
+              href="#get-started"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="order-2 group-hover:order-1 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] transition-colors relative overflow-hidden rounded-full bg-yellow-400 text-black px-5 py-2.5 font-semibold tracking-wide border border-yellow-300 shadow-[0_8px_24px_rgba(0,0,0,0.45)] group-hover:bg-black group-hover:text-white group-hover:border-white/25 group-hover:translate-x-1.5 will-change-transform"
+            >
+              <span className="relative z-10">Sign Up / Login</span>
+              <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.06), rgba(250,204,21,0.12))' }}
+              />
+            </motion.a>
+          </motion.div>
+        </motion.div>
       </nav>
     </motion.header>
   );
