@@ -18,9 +18,8 @@ function SpeakerSessions() {
   ];
 
   return (
-    <section className="relative bg-gradient-to-br from-neutral-900 via-black to-neutral-950 text-white min-h-screen flex items-center overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(250,204,21,0.1),transparent_50%)]"></div>
+    <section className="relative text-white py-24 overflow-hidden">
+      {/* Global background handles visuals */}
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex items-center gap-16">

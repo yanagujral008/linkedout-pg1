@@ -2,9 +2,8 @@ import { motion } from 'framer-motion';
 
 function Footer() {
   return (
-    <footer className="relative bg-gradient-to-t from-black via-neutral-950 to-neutral-900 text-neutral-400 py-12 border-t border-white/10 overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(250,204,21,0.05),transparent_50%)]"></div>
+    <footer className="relative text-neutral-400 py-12 border-t border-white/10 overflow-hidden">
+      {/* Global background handles visuals */}
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div

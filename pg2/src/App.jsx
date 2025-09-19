@@ -6,12 +6,16 @@ import PastEvents from './components/PastEvents.jsx';
 import Community from './components/Community.jsx';
 import Footer from './components/Footer.jsx';
 import './components/animations.css';
+import GlobalBackground from './components/GlobalBackground.jsx';
+import ScrollProgress from './components/ScrollProgress.jsx';
 
 function App() {
   return (
-    <div className="bg-gradient-to-br from-black via-neutral-950 to-black min-h-screen">
+    <div className="relative min-h-screen bg-black">
+      <ScrollProgress />
+      <GlobalBackground />
       <Header />
-      <div className="pt-20">
+      <div className="relative z-10">
         <Hero />
         <Statistics />
         <PastEvents />

@@ -49,12 +49,11 @@ function Community() {
   ];
 
   return (
-    <section className="relative bg-gradient-to-b from-neutral-900 via-black to-neutral-950 text-white py-24 overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(250,204,21,0.05),transparent_70%)]"></div>
+    <section className="relative text-white py-24 overflow-hidden">
+      {/* Global background handles visuals */}
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-16">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
           
           {/* LEFT COLUMN: Brand Collaborations & Contact */}
           <motion.div 
@@ -85,14 +84,17 @@ function Community() {
                 Proud to collaborate with industry leaders and innovators.
               </motion.p>
               
-              <div className="relative w-full overflow-hidden h-20 mb-12 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
-                <div className="flex absolute top-0 left-0 space-x-12 whitespace-nowrap animate-marquee items-center h-full px-6">
+              <div className="relative w-full overflow-hidden h-20 mb-10 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+                {/* Edge fades for cleaner marquee */}
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black/80 to-transparent z-10"></div>
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black/80 to-transparent z-10"></div>
+                <div className="flex absolute top-0 left-0 space-x-12 whitespace-nowrap animate-marquee items-center h-full px-6 will-change-transform">
                   {collaborators.map((logo, index) => (
                     <img 
                       key={`a-${index}`} 
                       src={logo} 
                       alt={`Brand ${index+1}`} 
-                      className="h-12 object-contain opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300 filter grayscale-0 hover:grayscale-0"
+                      className="h-12 object-contain opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300"
                     />
                   ))}
                   {collaborators.map((logo, index) => (
@@ -100,7 +102,7 @@ function Community() {
                       key={`b-${index}`} 
                       src={logo} 
                       alt={`Brand ${index+1}`} 
-                      className="h-12 object-contain opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300 filter grayscale-0 hover:grayscale-0"
+                      className="h-12 object-contain opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-300"
                     />
                   ))}
                 </div>
@@ -149,8 +151,11 @@ function Community() {
           >
             {/* Newsletter Section */}
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 to-yellow-600/5 rounded-3xl blur-xl"></div>
-              <div className="relative bg-white/5 backdrop-blur-xl p-8 rounded-3xl border border-white/20 shadow-2xl">
+              <div className="absolute -inset-2 rounded-[28px] bg-white/5 backdrop-blur-sm"></div>
+              {/* Aurora bordered newsletter card */}
+              <div className="relative rounded-[24px] overflow-hidden">
+                <div className="card-aurora pointer-events-none absolute inset-0 z-0"></div>
+                <div className="relative z-10 p-8 rounded-[24px] border border-white/15 shadow-2xl">
                 <motion.h3 
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -180,11 +185,12 @@ function Community() {
                     </motion.div>
                   ))}
                 </div>
+                </div>
               </div>
             </div>
 
             {/* Social Media Section */}
-            <div className="mt-4">
+            <div className="mt-6">
               <motion.h3 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}

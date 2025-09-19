@@ -1,8 +1,9 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import ImageCarousel from '../components/ImageCarousel.jsx';
+import GlobalBackground from '../components/GlobalBackground.jsx';
 
 import image1 from '../assets/image1.png';
 import image2 from '../assets/image2.png';
@@ -43,20 +44,19 @@ function PastEventsCard({ event, index, z }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.88 }}
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
       whileInView={{
         opacity: 1,
-        y: [30, 0, 0],
-        scale: [0.88, 1.06, 1.0],
-        boxShadow: '0 25px 60px rgba(250,204,21,0.25)'
+        y: 0,
+        scale: 1,
       }}
-      transition={{ duration: 0.7, times: [0, 0.6, 1], ease: 'easeOut' }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
       viewport={{ amount: 0.8, once: true }}
       style={{ zIndex: z }}
-      className="rounded-3xl bg-yellow-500/10 border border-yellow-400/40 shadow-[0_0_0_4px_rgba(250,204,21,0.18)_inset] p-8 md:p-12 flex flex-col md:flex-row items-center gap-10 backdrop-blur-sm"
+      className="rounded-3xl bg-black/30 border border-yellow-400/20 p-8 md:p-12 flex flex-col md:flex-row items-center gap-10 hover:border-yellow-400/30 transition-colors duration-300"
     >
       <div className="w-full md:w-1/2">
-        <div className="rounded-2xl overflow-hidden border border-yellow-300/50 bg-black/50 aspect-[16/10]">
+        <div className="rounded-2xl overflow-hidden border border-yellow-400/20 bg-black/30 aspect-[16/10] hover:border-yellow-400/40 transition-colors duration-300">
           <ImageCarousel images={slides} />
         </div>
       </div>
@@ -80,8 +80,10 @@ export default function PastEventsPage() {
   const cardRef = useRef(null);
 
   return (
-    <div className="min-h-screen text-white bg-gradient-to-br from-black via-neutral-950 to-black">
-      <Header />
+    <div className="min-h-screen text-white bg-black relative">
+      <GlobalBackground />
+      <div className="relative z-10">
+        <Header />
 
       <main className="container mx-auto px-4 pt-24 pb-24">
         <motion.header 
@@ -90,8 +92,7 @@ export default function PastEventsPage() {
           transition={{ duration: 0.8 }}
           className="py-16 text-center relative"
         >
-          {/* Background decoration */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(250,204,21,0.1),transparent_70%)]"></div>
+          {/* Background accent removed for cleaner look */}
           
           <motion.h1 
             initial={{ opacity: 0, scale: 0.9 }}
@@ -99,7 +100,7 @@ export default function PastEventsPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-5xl md:text-7xl font-bold mb-6 relative z-10"
           >
-            <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">LinkedOut</span>{' '}
+            <span className="text-yellow-400">LinkedOut</span>{' '}
             <span className="text-white">Live</span>
           </motion.h1>
           
@@ -137,7 +138,8 @@ export default function PastEventsPage() {
         </div>
       </main>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 }
