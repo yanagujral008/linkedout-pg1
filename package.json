@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "name": "linkedout",
     "type": "module",
     "version": "1.0.0",
@@ -55,3 +56,9 @@
     }
   }
   
+=======
+  "dependencies": {
+    "framer-motion": "^12.23.12"
+  }
+}
+>>>>>>> 6490925bac8f3f5dfd073ed5daeadbf216296759

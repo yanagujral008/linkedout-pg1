@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LinkedOut - React + Vite Application
 
 This project has been successfully converted from Astro to a pure React + Vite application while preserving the exact same UI and functionality.
@@ -78,3 +79,6 @@ The following services have been converted to mock implementations:
 - `getCurrentMember` - Member data retrieval
 
 These can be easily replaced with real API calls when needed.
+=======
+# Linkedout
+>>>>>>> 6490925bac8f3f5dfd073ed5daeadbf216296759
