@@ -3,11 +3,12 @@ import { Card } from '@/components/ui/card';
 import { Image } from '@/components/ui/image';
 import { Testimonials } from '@/entities/testimonials';
 import { AnimatePresence, motion, useScroll } from 'framer-motion';
-import { Settings, Target, Zap } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { BaseCrudService } from '../../../integrations';
 import FeatureBoxes from '../ui/feature-boxes';
+import NuraformShowcaseCard from '../ui/NuraformShowcaseCard';
+import InsightsSummaryCard from '../ui/InsightsSummaryCard';
 
 interface Silhouette {
   id: number;
@@ -343,64 +344,7 @@ export default function HomePage() {
           }}
         />
 
-        {/* Fixed Navbar - Minimal Nuraform-like layout */}
         <div className="w-full">
-          <motion.nav 
-            className="fixed top-0 left-0 right-0 z-50 px-4 md:px-6 py-4"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="max-w-7xl mx-auto flex items-center">
-              {/* Left: Logo + Brand */}
-            <motion.div 
-                className="flex items-center gap-3"
-                whileHover={{ scale: 1.02 }}
-            >
-                <div className="w-10 h-10 rounded-xl overflow-hidden">
-                <Image
-    src="/LOGO.jpg"
-                    alt="LinkedOut Logo"
-                    width={40}
-                    height={40}
-                    className="object-cover w-10 h-10"
-                  />
-              </div>
-                <span className="text-white font-heading font-bold text-2xl">linkedout</span>
-            </motion.div>
-            
-              {/* Center: Simple text links */}
-              <div className="hidden md:flex flex-1 justify-center gap-6">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.id}
-                    href="#"
-                    className="text-white/80 hover:text-white text-sm font-medium"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-
-              {/* Right: CTA */}
-              <div className="ml-auto">
-                <motion.div
-                  style={{ perspective: 800 }}
-                  whileHover={{ rotateX: -6, rotateY: 6, translateZ: 6 }}
-                  whileTap={{ scale: 0.98, rotateX: 0, rotateY: 0 }}
-                >
-                  <Button 
-                    size="sm"
-                    className="btn-nura rounded-full px-5 py-2 text-sm font-semibold"
-                  >
-                    <span className="btn-nura__label">Get Started Now</span>
-                    <span className="btn-nura__arrow">→</span>
-                  </Button>
-                </motion.div>
-              </div>
-            </div>
-          </motion.nav>
-
           {/* Hero Content - Nuraform Style */}
           <div className="relative z-10 pt-24 md:pt-32 pb-16 min-h-screen flex items-center">
             <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
@@ -423,12 +367,47 @@ export default function HomePage() {
                   whileHover={{ rotateX: -8, rotateY: 8, translateZ: 8 }}
                   whileTap={{ scale: 0.98, rotateX: 0, rotateY: 0 }}
                 >
-                  <Button 
-                    className="btn-nura px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-2"
+                  <motion.div
+                    layout
+                    transition={{ duration: 1.4, ease: [0.25, 1, 0.5, 1] }}
+                    className="group flex items-center gap-2"
                   >
-                    <span className="btn-nura__label">Test the Vibes</span>
-                    <span className="btn-nura__arrow">→</span>
-                  </Button>
+                    <motion.button
+                      layout
+                      transition={{ duration: 1.4, ease: [0.25, 1, 0.5, 1] }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="order-1 group-hover:order-2 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] transition-colors relative grid place-items-center h-11 w-11 rounded-full bg-yellow-400 text-black border border-yellow-300 shadow-[0_8px_24px_rgba(0,0,0,0.45)] group-hover:bg-black group-hover:text-white group-hover:border-white/25 group-hover:-translate-x-1.5 will-change-transform"
+                      aria-label="Go"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        className="h-5 w-5"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="M13 5l7 7-7 7" />
+                      </svg>
+                    </motion.button>
+
+                    <motion.a
+                      layout
+                      transition={{ duration: 1.4, ease: [0.25, 1, 0.5, 1] }}
+                      href="#get-started"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="order-2 group-hover:order-1 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] transition-colors relative overflow-hidden rounded-full bg-yellow-400 text-black px-5 py-2.5 md:px-6 md:py-3 font-semibold tracking-wide border border-yellow-300 shadow-[0_8px_24px_rgba(0,0,0,0.45)] group-hover:bg-black group-hover:text-white group-hover:border-white/25 group-hover:translate-x-1.5 will-change-transform"
+                    >
+                      <span className="relative z-10">Test the Vibes</span>
+                      <span
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                        style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.06), rgba(250,204,21,0.12))' }}
+                      />
+                    </motion.a>
+                  </motion.div>
                 </motion.div>
 
                 {/* Side Links */}
@@ -455,6 +434,7 @@ export default function HomePage() {
                     <div className="w-3 h-3 bg-primary rounded-full"></div>
                     <div className="w-3 h-3 bg-primary/60 rounded-full"></div>
                   </div>
+
                 </motion.div>
               </div>
 
@@ -550,21 +530,21 @@ export default function HomePage() {
                   desc: 'One prompt. One click. Done.',
                   stats: ['2.3s', '1.8s', '2.1s', '1.9s'],
                   labels: ['Avg. Generation', 'Fastest Time', 'Quality Score', 'User Rating'],
-                  gradient: 'from-pink-400 via-orange-400 to-yellow-400'
+                  gradient: 'from-yellow-300 via-amber-400 to-yellow-500'
                 },
                 { 
                   title: 'Create Content, Sound Right', 
                   desc: 'Always on-tone with your golden voice.',
                   stats: ['2.4K', '89%', '156', '4.2K'],
                   labels: ['Avg. Engagement', 'Voice Match Rate', 'Posts Created', 'Community Members'],
-                  gradient: 'from-purple-400 via-pink-400 to-orange-400'
+                  gradient: 'from-amber-300 via-yellow-400 to-amber-600'
                 },
                 { 
                   title: 'Get Multiple Agents', 
                   desc: 'Specialized assistants per workflow.',
                   stats: ['LinkedIn', 'Twitter', 'Instagram', 'TikTok'],
                   labels: ['Platform Focus', 'Content Type', 'Audience Size', 'Engagement Boost'],
-                  gradient: 'from-blue-400 via-purple-400 to-pink-400'
+                  gradient: 'from-yellow-200 via-amber-300 to-yellow-500'
                 }
               ].map((card, idx) => (
                 <div key={card.title} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${idx % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
@@ -609,108 +589,85 @@ export default function HomePage() {
                     </div>
           </div>
 
-                  {/* Animated Stats Card */}
-                  <motion.div
-                    className="relative"
-                    initial={{ opacity: 0, x: idx % 2 === 1 ? -50 : 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    animate={{ y: [0, -6, 0], rotate: [0, 0.4, 0] }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.6,
-                      delay: 0.1,
-                      y: { duration: 6, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut', delay: idx * 0.2 },
-                      rotate: { duration: 10, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }
-                    }}
-                  >
-                    <div className={`bg-gradient-to-br ${card.gradient} rounded-3xl p-8 shadow-2xl relative overflow-hidden`}>
-                      {/* Floating background elements */}
-                      <div className="absolute inset-0 bg-white/10 rounded-3xl" />
-                      <div className="absolute top-4 right-4 w-20 h-20 bg-white/20 rounded-full blur-xl" />
-                      <div className="absolute bottom-4 left-4 w-16 h-16 bg-white/15 rounded-full blur-lg" />
-                      
-                      {/* Card Header */}
-                      <div className="relative z-10 mb-6">
-                        <h4 className="text-white font-bold text-xl mb-2">Live Stats</h4>
-                        <p className="text-white/80 text-sm">Real-time performance metrics</p>
-                    </div>
-
-                      {/* Animated Stats Grid */}
-                      <div className="relative z-10 grid grid-cols-2 gap-4">
-                        {card.stats.map((stat, statIdx) => (
-                          <motion.div
-                            key={statIdx}
-                            className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-white/30"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: 0.2 + statIdx * 0.1 }}
-                            whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.3)' }}
-                          >
+                  {/* Right-side card */}
+                  {idx === 0 ? (
+                    <InsightsSummaryCard gradient={card.gradient} />
+                  ) : idx === 2 ? (
+                    <NuraformShowcaseCard images={carouselImages} />
+                  ) : (
+                    <motion.div
+                      className="relative"
+                      initial={{ opacity: 0, x: idx % 2 === 1 ? -50 : 50 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      animate={{ y: [0, -6, 0], rotate: [0, 0.4, 0] }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.6,
+                        delay: 0.1,
+                        y: { duration: 6, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut', delay: idx * 0.2 },
+                        rotate: { duration: 10, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }
+                      }}
+                    >
+                      <div className={`bg-gradient-to-br ${card.gradient} rounded-3xl p-8 shadow-2xl relative overflow-hidden`}>
+                        <div className="absolute inset-0 bg-white/10 rounded-3xl" />
+                        <div className="absolute top-4 right-4 w-20 h-20 bg-white/20 rounded-full blur-xl" />
+                        <div className="absolute bottom-4 left-4 w-16 h-16 bg-white/15 rounded-full blur-lg" />
+                        <div className="relative z-10 mb-6">
+                          <h4 className="text-white font-bold text-xl mb-2">Live Stats</h4>
+                          <p className="text-white/80 text-sm">Real-time performance metrics</p>
+                        </div>
+                        <div className="relative z-10 grid grid-cols-2 gap-4">
+                          {card.stats.map((stat, statIdx) => (
                             <motion.div
-                              className="text-2xl font-bold text-white mb-1"
-                              animate={{ 
-                                scale: [1, 1.1, 1],
-                                opacity: [0.8, 1, 0.8]
-                              }}
-                              transition={{ 
-                                duration: 2 + statIdx * 0.5,
-                                repeat: Infinity,
-                                delay: statIdx * 0.3
-                              }}
+                              key={statIdx}
+                              className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-white/30"
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.4, delay: 0.2 + statIdx * 0.1 }}
+                              whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.3)' }}
                             >
-                              {stat}
-                  </motion.div>
-                            <div className="text-white/70 text-xs font-medium">
-                              {card.labels[statIdx]}
-                      </div>
-                          </motion.div>
-                        ))}
-                    </div>
-
-                      {/* Animated Progress Bar */}
-                      <motion.div
-                        className="relative z-10 mt-6"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                      >
-                        <div className="text-white/80 text-sm mb-2">Overall Performance</div>
-                        <div className="bg-white/20 rounded-full h-2 overflow-hidden">
-                          <motion.div
-                            className="bg-white h-full rounded-full"
-                            initial={{ width: 0 }}
-                            whileInView={{ width: "85%" }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1.5, delay: 0.6 }}
-                          />
-                  </div>
-                      </motion.div>
-
-                      {/* Floating particles */}
-                      {[...Array(6)].map((_, i) => (
+                              <motion.div
+                                className="text-2xl font-bold text-white mb-1"
+                                animate={{ scale: [1, 1.1, 1], opacity: [0.8, 1, 0.8] }}
+                                transition={{ duration: 2 + statIdx * 0.5, repeat: Infinity, delay: statIdx * 0.3 }}
+                              >
+                                {stat}
+                              </motion.div>
+                              <div className="text-white/70 text-xs font-medium">{card.labels[statIdx]}</div>
+                            </motion.div>
+                          ))}
+                        </div>
                         <motion.div
-                          key={i}
-                          className="absolute w-2 h-2 bg-white/40 rounded-full"
-                          style={{
-                            left: `${20 + i * 15}%`,
-                            top: `${30 + (i % 3) * 20}%`
-                          }}
-                          animate={{
-                            y: [-10, 10, -10],
-                            opacity: [0.3, 0.8, 0.3],
-                            scale: [1, 1.2, 1]
-                          }}
-                          transition={{
-                            duration: 3 + i * 0.5,
-                            repeat: Infinity,
-                            delay: i * 0.3
-                          }}
-                        />
-                      ))}
-                    </div>
-                  </motion.div>
+                          className="relative z-10 mt-6"
+                          initial={{ opacity: 0 }}
+                          whileInView={{ opacity: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.6, delay: 0.4 }}
+                        >
+                          <div className="text-white/80 text-sm mb-2">Overall Performance</div>
+                          <div className="bg-white/20 rounded-full h-2 overflow-hidden">
+                            <motion.div
+                              className="bg-white h-full rounded-full"
+                              initial={{ width: 0 }}
+                              whileInView={{ width: '85%' }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 1.5, delay: 0.6 }}
+                            />
+                          </div>
+                        </motion.div>
+                        {[...Array(6)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className="absolute w-2 h-2 bg-white/40 rounded-full"
+                            style={{ left: `${20 + i * 15}%`, top: `${30 + (i % 3) * 20}%` }}
+                            animate={{ y: [-10, 10, -10], opacity: [0.3, 0.8, 0.3], scale: [1, 1.2, 1] }}
+                            transition={{ duration: 3 + i * 0.5, repeat: Infinity, delay: i * 0.3 }}
+                          />
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
               ))}
           </div>
@@ -1203,10 +1160,10 @@ export default function HomePage() {
             />
           </motion.div>
           {/* Community Picture Section */}
-          <div className="grid lg:grid-cols-5 gap-8 items-start">
+          <div className="grid md:grid-cols-5 gap-8 items-start">
             {/* Left Side - Community Image (3 columns) */}
             <motion.div
-              className="lg:col-span-3 relative overflow-hidden rounded-3xl"
+              className="md:col-span-3 relative overflow-hidden rounded-3xl"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -1304,226 +1261,42 @@ export default function HomePage() {
                       initial={{ pathLength: 0 }}
                       animate={{ pathLength: 1 }}
                       transition={{
-                        duration: 2,
-                        delay: index * 0.2,
+                        duration: 6,
                         repeat: Infinity,
-                        repeatType: "reverse"
+                        ease: "linear"
                       }}
                     />
                   );
                 })}
               </svg>
-
-              {/* Community Description - Below Image as Button */}
-              <motion.div
-                className="text-center mt-8"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-              >
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button 
-                    className="bg-primary/20 text-white border border-primary/50 py-3 px-8 rounded-2xl font-semibold hover:bg-primary/30 transition-all duration-300 relative overflow-hidden group text-lg"
-                    size="lg"
-                  >
-                    <span className="relative z-10">know about the community</span>
-                    {/* Animated background */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-primary/30 to-yellow-400/30"
-                      initial={{ x: "-100%" }}
-                      whileHover={{ x: "0%" }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    {/* Glow effect */}
-                    <motion.div
-                      className="absolute inset-0 bg-primary/20 opacity-50 blur-md"
-                      animate={{
-                        scale: [1, 1.1, 1],
-                        opacity: [0.2, 0.4, 0.2]
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity
-                      }}
-                    />
-                  </Button>
-                </motion.div>
-              </motion.div>
             </motion.div>
-
-            {/* Right Side - Testimonial Display Area (2 columns) */}
-            <div className="lg:col-span-2 relative min-h-[600px]">
-              {/* Floating decorative elements */}
-              <motion.div
-                className="absolute -top-10 -right-5 w-12 h-12 border-2 border-primary/30 rounded-lg"
-                animate={{
-                  rotate: [0, 180, 360],
-                  scale: [1, 1.1, 1]
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-              
-              <div className="sticky top-8">
-                <AnimatePresence mode="wait">
-                  {selectedTestimonial ? (
-                    <motion.div
-                      key={selectedTestimonial._id}
-                      initial={{ opacity: 0, x: 50, scale: 0.9, rotateY: 90 }}
-                      animate={{ opacity: 1, x: 0, scale: 1, rotateY: 0 }}
-                      exit={{ opacity: 0, x: -50, scale: 0.9, rotateY: -90 }}
-                      transition={{ duration: 0.6, ease: "easeOut" }}
-                      className="w-full"
-                    >
-                      <Card className="bg-light-grey border-primary border-2 p-8 rounded-2xl shadow-2xl relative overflow-hidden">
-                        {/* Animated background gradient */}
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent"
-                          animate={{
-                            opacity: [0.1, 0.3, 0.1]
-                          }}
-                          transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                          }}
-                        />
-                        
-                        <div className="relative z-10">
-                          <div className="flex items-start space-x-4 mb-6">
-                            {selectedTestimonial.authorImage && (
-                              <motion.div
-                                whileHover={{ scale: 1.1 }}
-                                className="relative"
-                              >
-                                <Image
-                                  src="./Coummunity.jpg"
-                                  alt={`${selectedTestimonial.authorName || 'Community member'} 
-                                  profile picture`}
-                                  className="w-16 h-16 rounded-full object-cover border-2 border-primary"
-                                  width={64}
-                                />
-                                {/* Glowing ring */}
-                                <motion.div
-                                  className="absolute inset-0 rounded-full border-2 border-primary"
-                                  animate={{
-                                    scale: [1, 1.2, 1],
-                                    opacity: [0.5, 1, 0.5]
-                                  }}
-                                  transition={{
-                                    duration: 2,
-                                    repeat: Infinity
-                                  }}
-                                />
-                              </motion.div>
-                            )}
-                            <div>
-                              <motion.h3 
-                                className="text-xl font-heading font-semibold text-white"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                              >
-                                {selectedTestimonial.authorName}
-                              </motion.h3>
-                              <motion.p 
-                                className="text-primary font-paragraph"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.3 }}
-                              >
-                                {selectedTestimonial.authorTitle}
-                              </motion.p>
-                            </div>
-                          </div>
-                          
-                          <motion.blockquote 
-                            className="text-lg font-paragraph text-white leading-relaxed italic relative"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                          >
-                            <span className="text-primary text-4xl absolute -top-2 -left-2">"</span>
-                            {selectedTestimonial.testimonialText}
-                            <span className="text-primary text-4xl">"</span>
-                          </motion.blockquote>
-                          
-                          {selectedTestimonial.testimonialDate && (
-                            <motion.p 
-                              className="text-sm text-white/70 mt-4 font-paragraph"
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              transition={{ delay: 0.6 }}
-                            >
-                              {new Date(selectedTestimonial.testimonialDate).toLocaleDateString()}
-                            </motion.p>
-                          )}
-                        </div>
-                      </Card>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="text-center py-16 relative w-full"
-                    >
-                      <motion.div 
-                        className="text-6xl mb-4"
-                        animate={{
-                          scale: [1, 1.1, 1],
-                          rotate: [0, 5, -5, 0]
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      >
-                        ↓
-                      </motion.div>
-                      <h3 className="text-2xl font-heading font-semibold text-white mb-4">
-                        Click on the arrow
-                      </h3>
-                      <p className="text-lg font-paragraph text-white/70">
-                      Don't just take our word for it -hear from our community
-                      </p>
-                      
-                      {/* Floating particles around the placeholder */}
-                      {[...Array(5)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          className="absolute w-2 h-2 bg-primary/30 rounded-full"
-                          style={{
-                            left: `${20 + i * 15}%`,
-                            top: `${30 + (i % 2) * 20}%`
-                          }}
-                          animate={{
-                            y: [-10, 10, -10],
-                            opacity: [0.3, 0.8, 0.3]
-                          }}
-                          transition={{
-                            duration: 2 + i * 0.5,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 0.3
-                          }}
-                        />
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+            <div className="md:col-span-2 relative flex items-start justify-center">
+              <div className="text-center py-8 relative w-full">
+                <motion.div 
+                  className="text-6xl mb-4"
+                  animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  ↓
+                </motion.div>
+                <h3 className="text-2xl font-heading font-semibold text-white mb-4">Click on the arrow</h3>
+                <p className="text-lg font-paragraph text-white/70">Don't just take our word for it -hear from our community</p>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Centered CTA below the community image */}
+      <div className="mt-8 flex justify-center">
+        <a
+          href="/community"
+          className="bg-primary/20 text-white border border-primary/50 py-3 px-8 rounded-2xl font-semibold hover:bg-primary/30 transition-all duration-300 relative overflow-hidden group text-lg"
+        >
+          <span className="relative z-10">know about the coummunity</span>
+          <span className="absolute inset-0 bg-gradient-to-r from-primary/30 to-yellow-400/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </a>
+      </div>
 
       {/* Section 5: Footer - Modern Design */}
       <footer className="bg-gradient-to-b from-background to-dark-grey section-spacing px-4 relative z-10 overflow-hidden">

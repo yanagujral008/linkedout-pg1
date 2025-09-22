@@ -20,7 +20,7 @@ const featureBoxes: FeatureBox[] = [
     title: "3 simple modes to help you brainstorm, add, or refine content with AI",
     description: "Suggest, Insert, and Rewrite modes to enhance your content creation process",
     icon: <Zap className="w-6 h-6" />,
-    gradient: "from-pink-500/80 via-orange-500/80 to-yellow-500/80",
+    gradient: "from-yellow-400/80 via-amber-500/80 to-yellow-600/80",
     stats: [
       { value: "3", label: "AI Modes" },
       { value: "2.3s", label: "Avg Speed" },
@@ -33,7 +33,7 @@ const featureBoxes: FeatureBox[] = [
     title: "AI-powered content generation per prompt and per platform",
     description: "Tailored content for LinkedIn, Twitter, Instagram, and more with your unique voice",
     icon: <Target className="w-6 h-6" />,
-    gradient: "from-purple-500/80 via-pink-500/80 to-orange-500/80",
+    gradient: "from-amber-300/80 via-yellow-500/80 to-amber-600/80",
     stats: [
       { value: "4+", label: "Platforms" },
       { value: "89%", label: "Voice Match" },
