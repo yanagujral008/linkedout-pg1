@@ -1,6 +1,5 @@
 import { ScrollToTop } from '@/lib/scroll-to-top';
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom';
-import { MemberProvider } from '../../integrations/index.js';
 import HomePage from './pages/HomePage';
 import Header from './Header';
 
@@ -36,8 +35,6 @@ const router = createBrowserRouter([
 
 export default function AppRouter() {
   return (
-    <MemberProvider>
-      <RouterProvider router={router} />
-    </MemberProvider>
+    <RouterProvider router={router} />
   );
 }

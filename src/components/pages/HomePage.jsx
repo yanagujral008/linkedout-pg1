@@ -2,12 +2,15 @@ import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
 import { AnimatePresence, motion, useScroll } from 'framer-motion';
 import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import { BaseCrudService } from '../../../integrations/index.js';
+// No backend: use local data for testimonials
+import TESTIMONIALS from '@/sections/home/Community/testimonials.data.js';
 import ThreeBackground from '../ui/ThreeBackground';
+import CardsSection from '@/sections/home/Cards/CardsSection';
+import useMounted from '@/hooks/useMounted';
+import HeroHeadline from '@/sections/home/Hero/HeroHeadline';
 
 const FeatureBoxes = React.lazy(() => import('../ui/feature-boxes'));
-const NuraformShowcaseCard = React.lazy(() => import('../ui/NuraformShowcaseCard'));
-const InsightsSummaryCard = React.lazy(() => import('../ui/InsightsSummaryCard'));
+// Heavy UI components are lazy-loaded in their respective sections/components
 
 // Positioned above standing people's heads to avoid hiding faces
 const silhouettes = [
@@ -20,30 +23,21 @@ const silhouettes = [
   { id: 7, x: 85, y: 17, name: "Jordan Taylor" }
 ];
 
+
 export default function HomePage() {
   const [testimonials, setTestimonials] = useState([]);
   const [hoveredSilhouette, setHoveredSilhouette] = useState(null);
   const headlineRef = useRef(null);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
 
   useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        const { items } = await BaseCrudService.getAll('testimonials');
-        setTestimonials(items);
-      } catch (error) {
-        console.error('Error fetching testimonials:', error);
-      }
-    };
-
-    fetchTestimonials();
+    // For landing page without backend, hydrate from local static data
+    setTestimonials(TESTIMONIALS);
   }, []);
 
-  // Ensure the headlineRef is hydrated before binding it to useScroll
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // mounted is handled by useMounted() hook for hydration-safe refs
 
+  
   const handleSilhouetteClick = (silhouetteId) => {
     const testimonial = testimonials.find(t => t.silhouetteId === silhouetteId);
     // Reserved for future use if selection detail panel is added
@@ -159,14 +153,7 @@ export default function HomePage() {
             <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Side - Text Content */}
               <div className="space-y-8">
-                <motion.h1 
-                  className="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-white leading-tight"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  Stunning, AI-Powered Content in Seconds.
-            </motion.h1>
+                <HeroHeadline />
             
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -320,158 +307,7 @@ export default function HomePage() {
           </div>
 
             {/* Nuraform-style Cards with Animated Stats */}
-            <div className="mt-24 space-y-16 px-4">
-              {[
-                { 
-                  title: 'Complete Post in Seconds', 
-                  desc: 'One prompt. One click. Done.',
-                  stats: ['2.3s', '1.8s', '2.1s', '1.9s'],
-                  labels: ['Avg. Generation', 'Fastest Time', 'Quality Score', 'User Rating'],
-                  gradient: 'from-yellow-300 via-amber-400 to-yellow-500'
-                },
-                { 
-                  title: 'Create Content, Sound Right', 
-                  desc: 'Always on-tone with your golden voice.',
-                  stats: ['2.4K', '89%', '156', '4.2K'],
-                  labels: ['Avg. Engagement', 'Voice Match Rate', 'Posts Created', 'Community Members'],
-                  gradient: 'from-amber-300 via-yellow-400 to-amber-600'
-                },
-                { 
-                  title: 'Your Voice, Every Time', 
-                  desc: 'User‑friendly AI that keeps your unique tone across platforms.',
-                  stats: ['LinkedIn', 'Twitter', 'Instagram', 'TikTok'],
-                  labels: ['Platform Focus', 'Content Type', 'Audience Size', 'Engagement Boost'],
-                  gradient: 'from-yellow-200 via-amber-300 to-yellow-500'
-                }
-              ].map((card, idx) => (
-                <div key={card.title} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${idx % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
-                  {/* Text Content */}
-                  <div className={`flex ${idx % 2 === 1 ? 'justify-end' : 'justify-start'} items-center`}>
-                    <div className="max-w-lg">
-                      <motion.h3 
-                        className="text-3xl md:text-4xl font-heading font-bold text-white mb-4"
-                        initial={{ opacity: 0, x: idx % 2 === 1 ? 50 : -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        {card.title}
-                      </motion.h3>
-                      <motion.p 
-                        className="text-white/70 text-lg mb-6"
-                        initial={{ opacity: 0, x: idx % 2 === 1 ? 50 : -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                      >
-                        {card.desc}
-                      </motion.p>
-            <motion.div
-                        className="flex items-center gap-3"
-                        initial={{ opacity: 0, x: idx % 2 === 1 ? 50 : -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                      >
-                        <Button className="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:bg-white/90 transition-colors">
-                          Try Now
-                        </Button>
-                        <button className="text-white/70 hover:text-white text-sm flex items-center gap-1">
-                          Learn more 
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </button>
-            </motion.div>
-                    </div>
-          </div>
-
-                  {/* Right-side card */}
-                  {idx === 0 ? (
-                    <Suspense fallback={null}>
-                      <InsightsSummaryCard gradient={card.gradient} />
-                    </Suspense>
-                  ) : idx === 2 ? (
-                    <Suspense fallback={null}>
-                      <NuraformShowcaseCard images={carouselImages} />
-                    </Suspense>
-                  ) : (
-                    <motion.div
-                      className="relative"
-                      initial={{ opacity: 0, x: idx % 2 === 1 ? -50 : 50 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      animate={{ y: [0, -6, 0], rotate: [0, 0.4, 0] }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.6,
-                        delay: 0.1,
-                        y: { duration: 6, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut', delay: idx * 0.2 },
-                        rotate: { duration: 10, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }
-                      }}
-                    >
-                      <div className={`bg-gradient-to-br ${card.gradient} rounded-3xl p-8 shadow-2xl relative overflow-hidden`}>
-                        <div className="absolute inset-0 bg-white/10 rounded-3xl" />
-                        <div className="absolute top-4 right-4 w-20 h-20 bg-white/20 rounded-full blur-xl" />
-                        <div className="absolute bottom-4 left-4 w-16 h-16 bg-white/15 rounded-full blur-lg" />
-                        <div className="relative z-10 mb-6">
-                          <h4 className="text-white font-bold text-xl mb-2">Live Stats</h4>
-                          <p className="text-white/80 text-sm">Real-time performance metrics</p>
-                        </div>
-                        <div className="relative z-10 grid grid-cols-2 gap-4">
-                          {card.stats.map((stat, statIdx) => (
-                            <motion.div
-                              key={statIdx}
-                              className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 border border-white/30"
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 0.4, delay: 0.2 + statIdx * 0.1 }}
-                              whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.3)' }}
-                            >
-                              <motion.div
-                                className="text-2xl font-bold text-white mb-1"
-                                animate={{ scale: [1, 1.1, 1], opacity: [0.8, 1, 0.8] }}
-                                transition={{ duration: 2 + statIdx * 0.5, repeat: Infinity, delay: statIdx * 0.3 }}
-                              >
-                                {stat}
-                              </motion.div>
-                              <div className="text-white/70 text-xs font-medium">{card.labels[statIdx]}</div>
-                            </motion.div>
-                          ))}
-                        </div>
-                        <motion.div
-                          className="relative z-10 mt-6"
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.6, delay: 0.4 }}
-                        >
-                          <div className="text-white/80 text-sm mb-2">Overall Performance</div>
-                          <div className="bg-white/20 rounded-full h-2 overflow-hidden">
-                            <motion.div
-                              className="bg-white h-full rounded-full"
-                              initial={{ width: 0 }}
-                              whileInView={{ width: '85%' }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 1.5, delay: 0.6 }}
-                            />
-                          </div>
-                        </motion.div>
-                        {[...Array(6)].map((_, i) => (
-                          <motion.div
-                            key={i}
-                            className="absolute w-2 h-2 bg-white/40 rounded-full"
-                            style={{ left: `${20 + i * 15}%`, top: `${30 + (i % 3) * 20}%` }}
-                            animate={{ y: [-10, 10, -10], opacity: [0.3, 0.8, 0.3], scale: [1, 1.2, 1] }}
-                            transition={{ duration: 3 + i * 0.5, repeat: Infinity, delay: i * 0.3 }}
-                          />
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </div>
-              ))}
-          </div>
+            <CardsSection carouselImages={carouselImages} />
           <div className="section-divider" />
         </div>
         
