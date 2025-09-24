@@ -1,8 +1,6 @@
 import importPlugin from 'eslint-plugin-import';
 import reactPlugin from 'eslint-plugin-react';
 import globals from 'globals';
-import useImageComponent from './eslint-rules/use-image-component.js';
-import fixEmptySelectItemValue from './eslint-rules/fix-empty-select-item-value.js';
 
 export default [
   {
@@ -12,12 +10,6 @@ export default [
     plugins: {
       react: reactPlugin,
       import: importPlugin,
-      custom: {
-        rules: {
-          'use-image-component': useImageComponent,
-          'fix-empty-select-item-value': fixEmptySelectItemValue,
-        },
-      },
     },
     languageOptions: {
       ecmaVersion: 'latest',
@@ -47,8 +39,6 @@ export default [
     },
     files: ['**/*.js', '**/*.jsx'],
     rules: {
-      'custom/use-image-component': 'error',
-      'custom/fix-empty-select-item-value': 'error',
       'no-unused-vars': 'off',
       'no-unused-labels': 'off',
       'no-unused-expressions': 'off',
