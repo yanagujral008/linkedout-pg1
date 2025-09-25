@@ -36,18 +36,19 @@ function Header() {
           {/* Links */}
           <ul className="flex items-center gap-8 px-4">
             <li>
-              <a href="#pricing" className="text-gray-200/90 hover:text-white transition-colors font-medium">
+              <a href="/write-post" className="text-gray-200/90 hover:text-white transition-colors font-medium">
                 Write a post
               </a>
             </li>
             <li>
-              <button
-                type="button"
+              <a
+                href="/community"
                 className="text-gray-200/90 hover:text-white transition-colors font-medium"
-                aria-label="Join Community (disabled)"
+                aria-label="Join Community"
+                rel="noopener noreferrer"
               >
                 Join Community
-              </button>
+              </a>
             </li>
           </ul>
 

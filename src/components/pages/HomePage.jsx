@@ -1032,7 +1032,7 @@ export default function HomePage() {
               </h4>
               <div className="space-y-3">
                 <motion.a 
-                  href="#" 
+                  href="/community" 
                   className="block text-white/70 font-paragraph hover:text-primary transition-colors"
                   whileHover={{ x: 5, color: "#FFC300" }}
                 >
